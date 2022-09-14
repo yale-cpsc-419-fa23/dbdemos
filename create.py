@@ -12,7 +12,7 @@ from sqlite3 import connect
 
 #-----------------------------------------------------------------------
 
-DATABASE_URL = 'file:bookstore.sqlite?mode=rwc'
+DATABASE_URL = 'file:publisher.sqlite?mode=rwc'
 
 def main():
 
