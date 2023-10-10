@@ -1,18 +1,19 @@
 #!/usr/bin/env python
 
-#-----------------------------------------------------------------------
+# -----------------------------------------------------------------------
 # authorsearch.py
 # Author: Bob Dondero
 # Modified for local use by Alan Weide (c) 2022
-#-----------------------------------------------------------------------
+# -----------------------------------------------------------------------
 
 from sys import argv, stderr, exit
 from contextlib import closing
 from sqlite3 import connect
 
-#-----------------------------------------------------------------------
+# -----------------------------------------------------------------------
 
 DATABASE_URL = 'file:publisher.sqlite?mode=ro'
+
 
 def main():
 
@@ -24,14 +25,14 @@ def main():
 
     try:
         with connect(DATABASE_URL, isolation_level=None,
-            uri=True) as connection:
+                     uri=True) as connection:
 
             with closing(connection.cursor()) as cursor:
 
                 stmt_str = "SELECT books.isbn, title, quantity "
                 stmt_str += "FROM books, authors "
                 stmt_str += "WHERE books.isbn = authors.isbn "
-                stmt_str += "AND author = '" + author + "'"
+                stmt_str += f"AND author = '{author}'"
                 cursor.execute(stmt_str)
 
                 row = cursor.fetchone()
@@ -46,7 +47,8 @@ def main():
         print(ex, file=stderr)
         exit(1)
 
-#-----------------------------------------------------------------------
+# -----------------------------------------------------------------------
+
 
 if __name__ == '__main__':
     main()
